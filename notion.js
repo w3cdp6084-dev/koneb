@@ -1,16 +1,31 @@
 const { Client } = require("@notionhq/client");
-const databaseId = "5bc1fcd90fc04ecca446ef4c1abb2647";
+const databaseId = process.env.NOTION_DATABASE_ID;
 const notion = new Client({
-  auth: "secret_OpzQDTV3nu45pJe6n2QrDo5QRMbCH2B9HmYPRSrvwZN"
+  auth: process.env.NOTION_TOKEN,
 });
-async function getBlogPosts() {
- const response = await notion.databases.query({
-   database_id: databaseId
- });
 
- return response.results;
+async function getBlogPosts() {
+  const response = await notion.databases.query({
+    database_id: databaseId,
+  });
+
+  const blogPosts = response.results.map((result) => {
+    if (!result.properties.title || !result.properties.title.title || !result.properties.title.title[0]?.text?.content) {
+      return null;
+    }
+
+    const title = result.properties.title.title[0].text.content;
+    const id = result.id;
+
+    return {
+      id,
+      title,
+    };
+  }).filter((post) => post !== null);
+
+  return blogPosts;
 }
+
 module.exports = {
- notion,
- getBlogPosts
+  getBlogPosts,
 };

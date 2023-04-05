@@ -19,6 +19,6 @@ export async function getStaticProps() {
     props: {
       blogPosts
     },
-    revalidate: 60 // 再生成間隔を秒単位で設定 (ここでは 1 分)
+    revalidate: 60
   };
 }
