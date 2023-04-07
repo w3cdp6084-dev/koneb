@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { getBlogPosts, getBlogPost } from "../notion";
+import { getBlogPosts, getBlogPost } from "../../notion.js";
 
 export default function BlogPost({ post }) {
   const router = useRouter();
