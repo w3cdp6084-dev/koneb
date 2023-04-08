@@ -1,0 +1,54 @@
+.menuWrapper {
+  position: relative;
+  z-index: 9998;
+  display: block;
+  overflow: hidden;
+  width: 3.75rem;
+  height: 3.75rem;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 1.875rem;
+  background-color: #d5fca2;
+ .menu {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   pointer-events: auto;
+ }
+ .menu-button {
+   position: fixed;
+   top: 16px;
+   right: 16px;
+   cursor: pointer;
+ }
+ .cross {
+   svg {
+     width: 24px;
+     height: 24px;
+   }
+ }
+ &.open {
+   .menuContent {
+     opacity: 1;
+     transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+   }
+ }
+}
+.menuContent {
+  display: none;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.menuContentOpen {
+  display: block;
+  transform: translate3d(0px, 0px, 0px) scale3d(0, 0, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+  transform-style: preserve-3d;
+  opacity: 1;
+}
+

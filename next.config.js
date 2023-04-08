@@ -1,11 +1,32 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
-}
+const path = require('path');
 
 module.exports = {
-  env: {
-    NOTION_DATABASE_ID: process.env.NOTION_DATABASE_ID,
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'styles')],
+  },
+  webpack(config) {
+    config.module.rules.push(
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: {
+                auto: true,
+              },
+            },
+          },
+          'sass-loader',
+        ],
+      }
+    );
+    return config;
   },
 };
